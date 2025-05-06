@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "5676705658",
+    "project_id": "sohoj-path-25105",
+    "storage_bucket": "sohoj-path-25105.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:5676705658:android:8f75713ea8aa1c546698c3",
+        "android_client_info": {
+          "package_name": "com.sohoj_path"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCjv3-j9pAqEGPDVXQKwVnlJv-ZTjFPAE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
