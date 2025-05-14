@@ -4,16 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.MenuItem;
-import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
     TextView textView;
     NavigationView navigationView;
     FirebaseUser user;
+    public DrawerLayout drawerLayout;
+    private BottomNavigationView bottomNavigationView;
+    private FrameLayout frameLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +52,29 @@ public class MainActivity extends AppCompatActivity {
         textView = headerView.findViewById(R.id.user_details);
         //button = findViewById(R.id.logout);
         //textView = findViewById(R.id.user_details);
+        bottomNavigationView = findViewById(R.id.bottomnavView);
+        frameLayout = findViewById(R.id.framelayout);
+        drawerLayout = findViewById(R.id.main);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+                if(itemId == R.id.navhome)
+                {
+                    loadFragment(new HomeFragment(),false);
+                }
+                else if(itemId == R.id.navadd) {
+                    loadFragment(new AddFragment(),false);
+                }
+                else if(itemId == R.id.navprofile){
+                    loadFragment(new ProfileFragment(),false);
+                }
+                return  true;
+            }
+        });
+        loadFragment(new HomeFragment(),true);
+
         user = auth.getCurrentUser();
         if (user == null)
         {
@@ -72,5 +104,19 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
+    }
+    private void  loadFragment(Fragment fragment, boolean isAppInitialized)
+    {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        if(isAppInitialized)
+        {
+            fragmentTransaction.add(R.id.framelayout, fragment);
+        }
+        else{
+            fragmentTransaction.replace(R.id.framelayout, fragment);
+        }
+        fragmentTransaction.commit();
     }
 }
