@@ -4,13 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
+import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -39,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main_drawer), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -50,11 +53,40 @@ public class MainActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.navigationView);
         View headerView = navigationView.getHeaderView(0);
         textView = headerView.findViewById(R.id.user_details);
-        //button = findViewById(R.id.logout);
+        //Button button = findViewById(R.id.logout);
         //textView = findViewById(R.id.user_details);
         bottomNavigationView = findViewById(R.id.bottomnavView);
         frameLayout = findViewById(R.id.framelayout);
-        drawerLayout = findViewById(R.id.main);
+        drawerLayout = findViewById(R.id.main_drawer);
+
+//        navigationView.setNavigationItemSelectedListener(item -> {
+//            if (item.getItemId() == R.id.logout) {
+//                Toast.makeText(MainActivity.this, "Logging out...", Toast.LENGTH_SHORT).show();
+//                FirebaseAuth.getInstance().signOut();
+//                startActivity(new Intent(getApplicationContext(), login.class));
+//                finish();
+//                return true;
+//            }
+//            return false;
+//        });
+        navigationView.setNavigationItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.logout) {
+                Toast.makeText(MainActivity.this, "Logging out...", Toast.LENGTH_SHORT).show();
+
+                // Close drawer first
+                drawerLayout.closeDrawer(GravityCompat.END);
+
+                // Then sign out
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getApplicationContext(), login.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+                return true;
+            }
+            return false;
+        });
+
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -68,12 +100,22 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(new AddFragment(),false);
                 }
                 else if(itemId == R.id.navprofile){
-                    loadFragment(new ProfileFragment(),false);
+//                    loadFragment(new ProfileFragment(),false);
+                    drawerLayout.openDrawer(GravityCompat.END);
                 }
                 return  true;
             }
         });
         loadFragment(new HomeFragment(),true);
+
+//        bottomNavigationView.setOnNavigationItemReselectedListener(item -> {
+//            if (item.getItemId() == R.id.navhome) {
+//                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intent);
+//                finish();
+//            }
+//        });
 
         user = auth.getCurrentUser();
         if (user == null)
@@ -95,15 +137,7 @@ public class MainActivity extends AppCompatActivity {
 //
 //            }
 //        });
-        navigationView.setNavigationItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.logout) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getApplicationContext(), login.class));
-                finish();
-                return true;
-            }
-            return false;
-        });
+
     }
     private void  loadFragment(Fragment fragment, boolean isAppInitialized)
     {
