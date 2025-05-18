@@ -83,6 +83,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
                 return true;
+
+            }else if (item.getItemId() == R.id.about) {
+                drawerLayout.closeDrawer(GravityCompat.END); // Close drawer
+
+                new android.app.AlertDialog.Builder(MainActivity.this)
+                        .setTitle("About Sohoj Path")
+                        .setMessage("This app provides vital accessibility info for wheelchair users.\n\nDeveloped by Shazzatul Islam Anam.")
+                        .setPositiveButton("OK", null)
+                        .show();
+
+                return true;
             }
             return false;
         });
