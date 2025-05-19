@@ -40,12 +40,12 @@
             android:hint="City" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Type"
-        android:textSize="17dp"
-        android:layout_marginTop="5dp" />
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Type"-->
+<!--        android:textSize="17dp"-->
+<!--        android:layout_marginTop="5dp" />-->
 
     <Spinner
         android:id="@+id/spinner_type"
@@ -108,12 +108,12 @@
                      android:layout_height="wrap_content"/>
     </RadioGroup>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Select Rating"
-        android:textSize="17dp"
-        android:layout_marginTop="5dp" />
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Select Rating"-->
+<!--        android:textSize="17dp"-->
+<!--        android:layout_marginTop="5dp" />-->
 
     <Spinner
         android:id="@+id/spinner_rating"

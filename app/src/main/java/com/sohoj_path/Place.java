@@ -10,6 +10,7 @@ public class Place {
     private String accessibility_rating;
     private String notes;
     private String added_by;
+    private String documentId;
 
     public Place() {
         // Empty constructor required for Firestore deserialization
@@ -42,17 +43,21 @@ public class Place {
     public void setAddress(String address) { this.address = address; }
 
     public boolean isAccessibleEntrance() { return accessible_entrance; }
-    public void setAccessibleEntrance(boolean accessibleEntrance) { this.accessible_entrance = accessible_entrance; }
+    public void setAccessibleEntrance(boolean accessibleEntrance) { this.accessible_entrance = accessibleEntrance; }
 
     public boolean isAccessibleToilet() { return accessible_toilet; }
-    public void setAccessibleToilet(boolean accessibleToilet) { this.accessible_toilet = accessible_toilet; }
+    public void setAccessibleToilet(boolean accessibleToilet) { this.accessible_toilet = accessibleToilet; }
 
     public String getRating() { return accessibility_rating; }
-    public void setRating(String rating) { this.accessibility_rating = accessibility_rating; }
+    public void setRating(String rating) { this.accessibility_rating = rating; }
 
     public String getNotes() { return notes; }
     public void setNotes(String notes) { this.notes = notes; }
 
     public String getUser() { return added_by; }
-    public void setUser(String user) { this.added_by = added_by; }
+    public void setUser(String user) { this.added_by = user; }
+
+    public String getDocumentId() { return documentId; }
+    public void setDocumentId(String documentId) { this.documentId = documentId; }
+
 }
