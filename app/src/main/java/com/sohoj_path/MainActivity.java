@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
 //        });
 
     }
-    private void  loadFragment(Fragment fragment, boolean isAppInitialized)
+    public void  loadFragment(Fragment fragment, boolean isAppInitialized)
     {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

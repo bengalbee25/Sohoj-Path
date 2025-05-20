@@ -66,8 +66,6 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
         notifyDataSetChanged();
     }
 
-
-
     public static class PlaceViewHolder extends RecyclerView.ViewHolder {
         TextView placeName, city, type, rating;
         Button buttonView, buttonEdit, buttonDelete;

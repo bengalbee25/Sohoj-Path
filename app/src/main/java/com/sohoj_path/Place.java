@@ -1,6 +1,10 @@
 package com.sohoj_path;
 
-public class Place {
+import java.io.Serializable;
+
+public class Place implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     private String name;
     private String city;
     private String type;
@@ -13,7 +17,7 @@ public class Place {
     private String documentId;
 
     public Place() {
-        // Empty constructor required for Firestore deserialization
+
     }
 
     public Place(String name, String city, String type, String address,

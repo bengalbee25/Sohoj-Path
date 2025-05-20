@@ -20,8 +20,10 @@
         android:layout_marginBottom="20dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="370dp"
+        android:layout_height="61dp"
+        android:layout_gravity="center"
+        >
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/email"
             android:layout_width="match_parent"
@@ -44,9 +46,10 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="370dp"
+        android:layout_height="61dp"
         android:layout_marginTop="8dp"
+        android:layout_gravity="center"
         android:hint="@string/password"
         app:endIconMode="password_toggle">
 
@@ -54,7 +57,8 @@
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            />
     </com.google.android.material.textfield.TextInputLayout>
     <ProgressBar
         android:id="@+id/progressBar"

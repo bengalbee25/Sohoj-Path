@@ -54,11 +54,24 @@ public class HomeFragment extends Fragment {
             @Override
             public void onView(Place place) {
                 Toast.makeText(getContext(), "Viewing: " + place.getName(), Toast.LENGTH_SHORT).show();
+                ViewPlaceFragment viewFragment = new ViewPlaceFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("place", place);
+                viewFragment.setArguments(bundle);
+
+                ((MainActivity) getActivity()).loadFragment(viewFragment, false);
+
             }
 
             @Override
             public void onEdit(Place place) {
-                Toast.makeText(getContext(), "Updating: " + place.getName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Start Updating: " + place.getName(), Toast.LENGTH_SHORT).show();
+                UpdatePlaceFragment updateFragment = new UpdatePlaceFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("place", place);
+                updateFragment.setArguments(bundle);
+
+                ((MainActivity) getActivity()).loadFragment(updateFragment, false);
             }
 
 //            @Override
