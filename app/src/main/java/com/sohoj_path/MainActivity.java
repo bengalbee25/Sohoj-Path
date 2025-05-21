@@ -23,6 +23,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -95,6 +96,47 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             }
+
+            else if (item.getItemId() == R.id.change_password) {
+                drawerLayout.closeDrawer(GravityCompat.END); // Close the drawer
+
+                // Inflate custom layout
+                View dialogView = getLayoutInflater().inflate(R.layout.dialog_change_password, null);
+                TextInputEditText newPasswordInput = dialogView.findViewById(R.id.new_password_input);
+
+                new android.app.AlertDialog.Builder(MainActivity.this)
+                        .setView(dialogView)
+                        .setPositiveButton("Change", (dialog, which) -> {
+                            String newPassword = newPasswordInput.getText().toString().trim();
+                            if (newPassword.length() < 6) {
+                                Toast.makeText(MainActivity.this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
+                            // Confirmation dialog
+                            new android.app.AlertDialog.Builder(MainActivity.this)
+                                    .setTitle("Confirm Password Change")
+                                    .setMessage("Are you sure you want to change your password?")
+                                    .setPositiveButton("Yes", (cDialog, cWhich) -> {
+                                        user.updatePassword(newPassword)
+                                                .addOnCompleteListener(task -> {
+                                                    if (task.isSuccessful()) {
+                                                        Toast.makeText(MainActivity.this, "Password changed successfully", Toast.LENGTH_SHORT).show();
+                                                    } else {
+                                                        Toast.makeText(MainActivity.this, "Password change failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                                    }
+                                                });
+                                    })
+                                    .setNegativeButton("No", null)
+                                    .show();
+
+                        })
+                        .setNegativeButton("Cancel", null)
+                        .show();
+
+                return true;
+            }
+
             return false;
         });
 

@@ -23,7 +23,8 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="370dp"
         android:layout_height="61dp"
-        android:gravity="center">
+        android:gravity="center"
+        app:endIconMode="clear_text">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/email"
             android:hint="@string/email"
