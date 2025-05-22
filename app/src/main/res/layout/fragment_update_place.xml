@@ -23,7 +23,7 @@
             android:textColor="#2196F3"
             android:textStyle="bold"
             android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp" />
+            android:layout_marginTop="40dp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -141,5 +141,10 @@
             android:text="Update"
             android:layout_marginTop="16dp"
             android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:text=""/>
     </LinearLayout>
 </ScrollView>
