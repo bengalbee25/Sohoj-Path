@@ -53,7 +53,7 @@
 1. Clone the repository:
 
    ```
-   git clone https://github.com/your-username/sohoj-path.git
+   git clone https://github.com/your-username/Sohoj-Path.git
    ```
 2. Open the project in Android Studio.
 3. Connect your Firebase project (or import `google-services.json`).
