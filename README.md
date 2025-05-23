@@ -146,7 +146,7 @@ To contribute:
 ## 🧑‍💻 Author
 
 * **Shazzatul Islam Anam**
----
+
 
 ### 📝 License
 
