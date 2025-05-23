@@ -11,6 +11,15 @@
         android:icon="@drawable/change_password"
         android:title="Change Password" />
 
+    <item
+        android:id="@+id/clear_cred"
+        android:icon="@drawable/clear"
+        android:title="Clear Saved Credentials" />
+
+    <item
+        android:id="@+id/del_account"
+        android:icon="@drawable/delete"
+        android:title="Delete Account" />
 
     <item
         android:id="@+id/logout"

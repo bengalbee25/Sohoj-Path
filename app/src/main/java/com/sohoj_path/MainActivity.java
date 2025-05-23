@@ -1,10 +1,16 @@
 package com.sohoj_path;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
     FirebaseUser user;
     public DrawerLayout drawerLayout;
     private BottomNavigationView bottomNavigationView;
-    private FrameLayout frameLayout;
 
 
     @Override
@@ -57,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         //Button button = findViewById(R.id.logout);
         //textView = findViewById(R.id.user_details);
         bottomNavigationView = findViewById(R.id.bottomnavView);
-        frameLayout = findViewById(R.id.framelayout);
         drawerLayout = findViewById(R.id.main_drawer);
 
 //        navigationView.setNavigationItemSelectedListener(item -> {
@@ -98,9 +102,9 @@ public class MainActivity extends AppCompatActivity {
             }
 
             else if (item.getItemId() == R.id.change_password) {
-                drawerLayout.closeDrawer(GravityCompat.END); // Close the drawer
+                drawerLayout.closeDrawer(GravityCompat.END);
 
-                // Inflate custom layout
+
                 View dialogView = getLayoutInflater().inflate(R.layout.dialog_change_password, null);
                 TextInputEditText newPasswordInput = dialogView.findViewById(R.id.new_password_input);
 
@@ -113,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
                                 return;
                             }
 
-                            // Confirmation dialog
                             new android.app.AlertDialog.Builder(MainActivity.this)
                                     .setTitle("Confirm Password Change")
                                     .setMessage("Are you sure you want to change your password?")
@@ -136,6 +139,66 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             }
+
+            else if (item.getItemId() == R.id.clear_cred) {
+                drawerLayout.closeDrawer(GravityCompat.END);
+                new android.app.AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Clear Saved Credentials")
+                        .setMessage("Are you sure you want to remove saved login info for this account?")
+                        .setPositiveButton("Yes", (dialog, which) -> {
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            if (user != null) {
+                                String email = user.getEmail();
+                                SharedPreferences prefs = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                                String savedEmail = prefs.getString("saved_email", "");
+                                if (email != null && email.equals(savedEmail)) {
+                                    prefs.edit().remove("saved_email").remove("saved_password").apply();
+                                    Toast.makeText(MainActivity.this, "Credentials cleared successfully", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(MainActivity.this, "No saved credentials found for this user", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(MainActivity.this, "No user is logged in", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setNegativeButton("Cancel", null)
+                        .show();
+                return true;
+            }
+
+            else if (item.getItemId() == R.id.del_account) {
+                drawerLayout.closeDrawer(GravityCompat.END);
+                new android.app.AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Delete Account")
+                        .setMessage("Are you sure you want to permanently delete your account? This action cannot be undone.")
+                        .setPositiveButton("Yes", (dialog, which) -> {
+                            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                            if (currentUser != null) {
+                                currentUser.delete()
+                                        .addOnCompleteListener(task -> {
+                                            if (task.isSuccessful()) {
+                                                Toast.makeText(MainActivity.this, "Account deleted", Toast.LENGTH_SHORT).show();
+
+                                                getSharedPreferences("MyPrefs", MODE_PRIVATE).edit().clear().apply();
+
+                                                Intent intent = new Intent(getApplicationContext(), login.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                startActivity(intent);
+                                                finish();
+                                            } else {
+                                                Toast.makeText(MainActivity.this, "Account deletion failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                            }
+                                        });
+                            } else {
+                                Toast.makeText(MainActivity.this, "No user is logged in", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+
+                return true;
+            }
+
 
             return false;
         });
@@ -206,4 +269,25 @@ public class MainActivity extends AppCompatActivity {
         }
         fragmentTransaction.commit();
     }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (v instanceof TextInputEditText || v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int) ev.getRawX(), (int) ev.getRawY())) {
+                    v.clearFocus();
+
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    if (imm != null) {
+                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    }
+                }
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
 }
