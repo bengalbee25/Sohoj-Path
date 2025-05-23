@@ -146,3 +146,8 @@ To contribute:
 ## 🧑‍💻 Author
 
 * **Shazzatul Islam Anam**
+---
+
+### 📝 License
+
+This project is licensed under Apache License 2.0. See the [LICENSE](./LICENSE) file for details.
