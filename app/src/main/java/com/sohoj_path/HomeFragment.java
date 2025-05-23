@@ -121,7 +121,8 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadPlaces() {
-        db.collection("places").get()
+        db.collection("places").orderBy("name")
+                .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     placeList.clear();
                     for (DocumentSnapshot doc : queryDocumentSnapshots) {
