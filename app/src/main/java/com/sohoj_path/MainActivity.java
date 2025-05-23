@@ -63,6 +63,7 @@ public class MainActivity extends BaseActivity {
         //Button button = findViewById(R.id.logout);
         //textView = findViewById(R.id.user_details);
         bottomNavigationView = findViewById(R.id.bottomnavView);
+        //bottomNavigationView.setItemIconSize(60);
         drawerLayout = findViewById(R.id.main_drawer);
 
 //        navigationView.setNavigationItemSelectedListener(item -> {

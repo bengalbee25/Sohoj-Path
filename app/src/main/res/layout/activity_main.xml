@@ -27,8 +27,8 @@
             android:id="@+id/bottomnavView"
             android:layout_width="match_parent"
             app:menu="@menu/bottom_nav_menu"
-            app:itemPaddingBottom="0dp"
-            android:layout_height="70dp"
+            app:itemPaddingBottom="20dp"
+            android:layout_height="wrap_content"
             />
 
     </LinearLayout>
