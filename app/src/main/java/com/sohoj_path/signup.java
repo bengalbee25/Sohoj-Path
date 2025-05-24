@@ -122,25 +122,4 @@ public class signup extends BaseActivity {
         });
 
     }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-            View v = getCurrentFocus();
-            if (v instanceof TextInputEditText || v instanceof EditText) {
-                Rect outRect = new Rect();
-                v.getGlobalVisibleRect(outRect);
-                if (!outRect.contains((int) ev.getRawX(), (int) ev.getRawY())) {
-                    v.clearFocus();
-
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    if (imm != null) {
-                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                    }
-                }
-            }
-        }
-        return super.dispatchTouchEvent(ev);
-    }
-
 }
