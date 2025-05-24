@@ -110,7 +110,6 @@ public class signup extends BaseActivity {
                                     finish();
 
                                 } else {
-                                    // If sign in fails, display a message to the user.
                                     Toast.makeText(signup.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
 

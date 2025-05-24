@@ -2,8 +2,12 @@ package com.sohoj_path;
 
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
+import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
 public class BaseActivity extends AppCompatActivity {
     private NetworkChangeReceiver networkChangeReceiver;
