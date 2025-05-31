@@ -37,7 +37,11 @@
             android:id="@+id/edit_place_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Place Name" />
+            android:hint="Place Name"
+            android:inputType="text"
+            android:singleLine="true"
+            android:scrollHorizontally="true"
+            android:ellipsize="none"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -49,7 +53,11 @@
             android:id="@+id/edit_city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="City" />
+            android:hint="City"
+            android:inputType="text"
+            android:singleLine="true"
+            android:scrollHorizontally="true"
+            android:ellipsize="none"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 <!--    <TextView-->
@@ -74,7 +82,11 @@
             android:id="@+id/edit_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Address" />
+            android:hint="Address"
+            android:inputType="text"
+            android:singleLine="true"
+            android:scrollHorizontally="true"
+            android:ellipsize="none"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
